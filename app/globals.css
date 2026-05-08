@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 248 250 252;
+  --foreground: 2 6 23;
+  --surface: 255 255 255;
+  --card: 241 245 249;
+  --primary: 2 132 199;
+  --deep: 29 78 216;
+  --accent: 8 145 178;
+  --muted: 71 85 105;
+  --border: 226 232 240;
+}
+
+.dark {
+  --background: 2 6 23;
+  --foreground: 248 250 252;
+  --surface: 15 23 42;
+  --card: 17 24 39;
+  --primary: 56 189 248;
+  --deep: 37 99 235;
+  --accent: 103 232 249;
+  --muted: 148 163 184;
+  --border: 148 163 184;
+}
+
+* {
+  border-color: rgb(var(--border) / 0.18);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+  min-height: 100vh;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+::selection {
+  background: rgb(var(--primary) / 0.35);
+  color: rgb(var(--foreground));
+}
+
+.bg-radial-blue {
+  background:
+    radial-gradient(circle at 20% 10%, rgb(var(--primary) / 0.18), transparent 28rem),
+    radial-gradient(circle at 80% 18%, rgb(var(--accent) / 0.13), transparent 24rem),
+    radial-gradient(circle at 50% 85%, rgb(var(--deep) / 0.14), transparent 30rem);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.glass-panel {
+  background: rgb(var(--surface) / 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.dark .glass-panel {
+  background: rgb(var(--surface) / 0.58);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
