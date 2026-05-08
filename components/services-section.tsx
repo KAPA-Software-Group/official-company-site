@@ -86,7 +86,7 @@ export function ServicesSection() {
                   <div className="absolute -bottom-20 left-8 h-40 w-40 rounded-full bg-accent/12 blur-3xl" />
                 </div>
                 <div className="relative">
-                  <div className="mb-7 grid h-12 w-12 place-items-center rounded-2xl border bg-primary/10 text-primary">
+                  <div className="liquid-pill mb-7 grid h-12 w-12 place-items-center rounded-2xl border text-primary">
                     <service.icon className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold tracking-tight text-foreground">

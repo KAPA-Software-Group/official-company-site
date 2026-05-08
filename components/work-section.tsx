@@ -53,9 +53,9 @@ export function WorkSection() {
               transition={{ duration: 0.45, delay: index * 0.08 }}
             >
               <Card className="group h-full overflow-hidden p-4 hover:-translate-y-1 hover:border-primary/55 hover:shadow-glow">
-                <div className="relative overflow-hidden rounded-[1.4rem] border bg-background/80 p-4">
+                <div className="liquid-glass relative overflow-hidden rounded-[1.4rem] border p-4">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/12 via-transparent to-accent/10 opacity-80" />
-                  <div className="relative rounded-2xl border bg-surface/75 p-4">
+                  <div className="liquid-pill relative rounded-2xl border p-4">
                     <div className="mb-4 flex items-center justify-between">
                       <div className="h-2.5 w-24 rounded-full bg-primary/45" />
                       <div className="h-7 w-7 rounded-full border bg-card" />
@@ -88,7 +88,7 @@ export function WorkSection() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border bg-surface/70 px-3 py-1 text-xs font-semibold text-muted"
+                        className="liquid-pill rounded-full border px-3 py-1 text-xs font-semibold text-muted"
                       >
                         {tag}
                       </span>

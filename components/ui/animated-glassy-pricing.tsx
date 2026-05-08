@@ -184,7 +184,7 @@ export const PricingCard = ({
   buttonVariant = "primary",
 }: PricingCardProps) => {
   const cardClasses = `
-    backdrop-blur-[14px] bg-gradient-to-br rounded-2xl shadow-xl flex-1 w-full max-w-xs px-7 py-8 flex flex-col transition-all duration-300
+    liquid-glass backdrop-blur-[14px] bg-gradient-to-br rounded-2xl shadow-xl flex-1 w-full max-w-xs px-7 py-8 flex flex-col transition-all duration-300
     from-black/5 to-black/0 border border-black/10
     dark:from-white/10 dark:to-white/5 dark:border-white/10 dark:backdrop-brightness-[0.91]
     ${isPopular ? "scale-[1.02] relative ring-2 ring-cyan-400/20 dark:from-white/20 dark:to-white/10 dark:border-cyan-400/30 shadow-2xl" : ""}
@@ -250,7 +250,7 @@ export const ModernPricingPage = ({
   showAnimatedBackground = true,
 }: ModernPricingPageProps) => {
   return (
-    <div className="relative w-full overflow-hidden rounded-[2rem] border bg-background text-foreground">
+    <div className="liquid-glass-strong relative w-full overflow-hidden rounded-[2rem] border text-foreground">
       {showAnimatedBackground ? <ShaderCanvas /> : null}
       <main className="relative z-10 flex min-h-[760px] w-full flex-col items-center justify-center px-4 py-16">
         <div className="mx-auto mb-14 w-full max-w-5xl text-center">

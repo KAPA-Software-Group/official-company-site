@@ -50,10 +50,10 @@ export function ProcessSection() {
                 transition={{ duration: 0.42, delay: index * 0.08 }}
                 className="relative pl-12 md:pl-0"
               >
-                <div className="absolute left-0 top-1 grid h-9 w-9 place-items-center rounded-full border bg-background text-sm font-bold text-primary shadow-glow md:relative md:left-auto md:top-auto md:mx-auto">
+                <div className="liquid-pill absolute left-0 top-1 grid h-9 w-9 place-items-center rounded-full border text-sm font-bold text-primary shadow-glow md:relative md:left-auto md:top-auto md:mx-auto">
                   {index + 1}
                 </div>
-                <div className="rounded-3xl border bg-card/70 p-5 md:mt-7">
+                <div className="liquid-glass rounded-3xl border p-5 md:mt-7">
                   <h3 className="text-lg font-bold text-foreground">{step.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-muted">{step.description}</p>
                 </div>

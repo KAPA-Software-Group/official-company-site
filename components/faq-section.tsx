@@ -43,7 +43,7 @@ export function FAQSection() {
       <div className="mx-auto max-w-4xl">
         <SectionHeading title="Questions before we start." />
 
-        <div className="mt-12 divide-y rounded-3xl border bg-card/70">
+        <div className="liquid-glass mt-12 divide-y overflow-hidden rounded-3xl border">
           {faqs.map((faq, index) => {
             const isOpen = active === index;
 
