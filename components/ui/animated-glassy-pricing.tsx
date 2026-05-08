@@ -227,7 +227,7 @@ export const PricingCard = ({
       <RippleButton
         className={buttonClasses.trim()}
         onClick={() => {
-          window.location.href = "#contact";
+          window.location.href = "/contact";
         }}
       >
         {buttonText}

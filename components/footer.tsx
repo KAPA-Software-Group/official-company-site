@@ -1,4 +1,14 @@
+import Link from "next/link";
+
 const navLinks = ["Home", "Services", "Work", "Process", "About", "Contact"];
+const navHref: Record<string, string> = {
+  Home: "/",
+  Services: "/services",
+  Work: "/work",
+  Process: "/process",
+  About: "/about",
+  Contact: "/contact",
+};
 const serviceLinks = [
   "Custom Websites",
   "Web Applications",
@@ -13,12 +23,12 @@ export function Footer() {
     <footer className="border-t bg-surface/50 px-4 py-12">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_0.7fr_0.8fr]">
         <div>
-          <a href="#" className="flex items-center gap-3" aria-label="Kapa Software Group home">
+          <Link href="/" className="flex items-center gap-3" aria-label="Kapa Software Group home">
             <span className="grid h-9 w-9 place-items-center rounded-2xl bg-primary text-sm font-black text-slate-950">
               K
             </span>
             <span className="text-base font-bold">Kapa Software Group</span>
-          </a>
+          </Link>
           <p className="mt-5 max-w-md text-sm leading-7 text-muted">
             Modern websites, web applications, automations, and digital systems
             for growing businesses.
@@ -36,12 +46,12 @@ export function Footer() {
           <ul className="mt-4 space-y-3">
             {navLinks.map((link) => (
               <li key={link}>
-                <a
-                  href={link === "Home" ? "#" : `#${link.toLowerCase()}`}
+                <Link
+                  href={navHref[link]}
                   className="text-sm text-muted transition hover:text-primary"
                 >
                   {link}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -52,9 +62,9 @@ export function Footer() {
           <ul className="mt-4 space-y-3">
             {serviceLinks.map((link) => (
               <li key={link}>
-                <a href="#services" className="text-sm text-muted transition hover:text-primary">
+                <Link href="/services" className="text-sm text-muted transition hover:text-primary">
                   {link}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

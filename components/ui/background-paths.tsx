@@ -95,7 +95,7 @@ export function BackgroundPaths({ title = "Background Paths" }: { title?: string
           <div className="group relative inline-block overflow-hidden rounded-2xl bg-gradient-to-b from-black/10 to-white/10 p-px shadow-lg backdrop-blur-lg transition-shadow duration-300 hover:shadow-xl dark:from-white/10 dark:to-black/10">
             <LiquidButton
               className="px-8 py-6 text-lg font-semibold text-black dark:text-white"
-              onClick={() => (window.location.href = "#contact")}
+              onClick={() => (window.location.href = "/contact")}
             >
               <span className="opacity-90 transition-opacity group-hover:opacity-100">
                 Start a Project

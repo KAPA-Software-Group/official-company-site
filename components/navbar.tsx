@@ -1,20 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Home", href: "#" },
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "Process", href: "/process" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const menuVariants: Variants = {
@@ -67,6 +69,7 @@ const itemVariants: Variants = {
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4">
@@ -74,33 +77,45 @@ export function Navbar() {
         className="liquid-glass-strong mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-3"
         aria-label="Primary navigation"
       >
-        <a href="#" className="flex items-center gap-3" aria-label="Kapa Software Group home">
+        <Link href="/" className="flex items-center gap-3" aria-label="Kapa Software Group home">
           <span className="grid h-9 w-9 place-items-center rounded-2xl bg-primary text-sm font-black text-slate-950 shadow-glow">
             K
           </span>
           <span className="text-sm font-bold tracking-tight sm:text-base">
             Kapa Software Group
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-7 lg:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="group relative text-sm font-medium text-muted transition hover:text-foreground"
-            >
-              {item.label}
-              <span className="absolute -bottom-2 left-0 h-px w-full origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={cn(
+                  "group relative text-sm font-medium transition hover:text-foreground",
+                  isActive ? "text-foreground" : "text-muted",
+                )}
+              >
+                {item.label}
+                <span
+                  className={cn(
+                    "absolute -bottom-2 left-0 h-px w-full origin-left bg-primary transition-transform duration-300 group-hover:scale-x-100",
+                    isActive ? "scale-x-100" : "scale-x-0",
+                  )}
+                />
+              </Link>
+            );
+          })}
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
-          <a className={cn(buttonVariants({ size: "sm" }))} href="#contact">
+          <Link className={cn(buttonVariants({ size: "sm" }))} href="/contact">
             Start a Project
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
@@ -144,29 +159,43 @@ export function Navbar() {
             />
             <div className="grid gap-2">
               {navItems.map((item) => (
-                <motion.a
+                <motion.div
                   key={item.label}
-                  href={item.href}
                   variants={itemVariants}
                   whileHover={{ x: 6 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group relative overflow-hidden rounded-2xl px-4 py-3 text-sm font-medium text-muted transition hover:bg-primary/10 hover:text-foreground"
-                  onClick={() => setOpen(false)}
                 >
-                  <span className="absolute inset-y-2 left-0 w-1 origin-y scale-y-0 rounded-full bg-primary transition-transform duration-300 group-hover:scale-y-100" />
-                  {item.label}
-                </motion.a>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "group relative block overflow-hidden rounded-2xl px-4 py-3 text-sm font-medium transition hover:bg-primary/10 hover:text-foreground",
+                      pathname === item.href ? "bg-primary/10 text-foreground" : "text-muted",
+                    )}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span
+                      className={cn(
+                        "absolute inset-y-2 left-0 w-1 origin-y rounded-full bg-primary transition-transform duration-300 group-hover:scale-y-100",
+                        pathname === item.href ? "scale-y-100" : "scale-y-0",
+                      )}
+                    />
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
-              <motion.a
+              <motion.div
                 variants={itemVariants}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className={cn(buttonVariants({ className: "mt-2 w-full" }))}
-                href="#contact"
-                onClick={() => setOpen(false)}
               >
-                Start a Project
-              </motion.a>
+                <Link
+                  className={cn(buttonVariants({ className: "mt-2 w-full" }))}
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                >
+                  Start a Project
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         ) : null}
