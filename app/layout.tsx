@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SiteShell } from "@/components/site-shell";
 import { WebsiteIntro } from "@/components/website-intro";
 import "./globals.css";
 
@@ -38,7 +39,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <WebsiteIntro />
-        {children}
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );

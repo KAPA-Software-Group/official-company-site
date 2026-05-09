@@ -1,11 +1,10 @@
 import { FAQSection } from "@/components/faq-section";
 import { PageHero } from "@/components/page-hero";
-import { SiteShell } from "@/components/site-shell";
 import { WhyKapaSection } from "@/components/why-kapa-section";
 
 export default function AboutPage() {
   return (
-    <SiteShell>
+    <>
       <PageHero
         eyebrow="About"
         title="Modern software thinking for business websites and tools."
@@ -13,6 +12,6 @@ export default function AboutPage() {
       />
       <WhyKapaSection />
       <FAQSection />
-    </SiteShell>
+    </>
   );
 }
