@@ -7,31 +7,24 @@ import { useEffect, useState } from "react";
 const INTRO_KEY = "kapa-intro-seen";
 
 export function WebsiteIntro() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    let timer: number | undefined;
+    const hasSeenIntro = sessionStorage.getItem(INTRO_KEY) === "true";
 
-    const frame = window.requestAnimationFrame(() => {
-      const hasSeenIntro = sessionStorage.getItem(INTRO_KEY) === "true";
+    if (hasSeenIntro) {
+      const frame = window.requestAnimationFrame(() => setShow(false));
+      return () => window.cancelAnimationFrame(frame);
+    }
 
-      if (hasSeenIntro) {
-        return;
-      }
+    sessionStorage.setItem(INTRO_KEY, "true");
 
-      setShow(true);
-      sessionStorage.setItem(INTRO_KEY, "true");
-
-      const duration = shouldReduceMotion ? 700 : 2600;
-      timer = window.setTimeout(() => setShow(false), duration);
-    });
+    const duration = shouldReduceMotion ? 700 : 2600;
+    const timer = window.setTimeout(() => setShow(false), duration);
 
     return () => {
-      window.cancelAnimationFrame(frame);
-      if (timer) {
-        window.clearTimeout(timer);
-      }
+      window.clearTimeout(timer);
     };
   }, [shouldReduceMotion]);
 
