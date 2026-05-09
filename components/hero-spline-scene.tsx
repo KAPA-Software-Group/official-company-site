@@ -21,7 +21,6 @@ export function HeroSplineScene() {
       <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-primary/10 blur-3xl" />
       <Card className="relative h-[560px] overflow-hidden border-primary/15 bg-slate-950 text-slate-50 shadow-[0_30px_110px_rgb(2_6_23/0.34)] sm:h-[620px] lg:h-[680px]">
         <Spotlight className="-top-40 left-0 md:-top-24 md:left-44" fill="#67E8F9" />
-        <div className="absolute inset-0 bg-grid-pattern bg-[size:42px_42px] opacity-[0.08]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_30%,rgba(56,189,248,0.22),transparent_34%),radial-gradient(circle_at_22%_70%,rgba(37,99,235,0.18),transparent_28%)]" />
 
         <div className="relative z-10 flex h-full flex-col lg:flex-row">

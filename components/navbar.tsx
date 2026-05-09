@@ -6,6 +6,7 @@ import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
+import { BrandLogo } from "@/components/brand-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -78,12 +79,7 @@ export function Navbar() {
         aria-label="Primary navigation"
       >
         <Link href="/" className="flex items-center gap-3" aria-label="Kapa Software Group home">
-          <span className="grid h-9 w-9 place-items-center rounded-2xl bg-primary text-sm font-black text-slate-950 shadow-glow">
-            K
-          </span>
-          <span className="text-sm font-bold tracking-tight sm:text-base">
-            Kapa Software Group
-          </span>
+          <BrandLogo priority />
         </Link>
 
         <div className="hidden items-center gap-7 lg:flex">

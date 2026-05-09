@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { BrandLogo } from "@/components/brand-logo";
+
 const navLinks = ["Home", "Services", "Work", "Process", "About", "Contact"];
 const navHref: Record<string, string> = {
   Home: "/",
@@ -24,10 +26,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_0.7fr_0.8fr]">
         <div>
           <Link href="/" className="flex items-center gap-3" aria-label="Kapa Software Group home">
-            <span className="grid h-9 w-9 place-items-center rounded-2xl bg-primary text-sm font-black text-slate-950">
-              K
-            </span>
-            <span className="text-base font-bold">Kapa Software Group</span>
+            <BrandLogo />
           </Link>
           <p className="mt-5 max-w-md text-sm leading-7 text-muted">
             Modern websites, web applications, automations, and digital systems

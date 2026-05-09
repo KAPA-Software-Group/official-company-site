@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 
 import { ShaderAnimation } from "@/components/ui/shader-animation";
 
@@ -13,7 +14,6 @@ export function HeroSection() {
         <ShaderAnimation className="h-full w-full" />
       </div>
 
-      <div className="absolute inset-0 -z-20 bg-grid-pattern bg-[size:52px_52px] opacity-[0.08]" />
       <motion.div
         aria-hidden="true"
         className="absolute inset-y-0 left-[-30%] -z-10 w-[42%] skew-x-[-16deg] bg-gradient-to-r from-transparent via-cyan-300/20 to-transparent blur-sm"
@@ -35,14 +35,32 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(2_6_23/0.22),rgb(2_6_23/0.62)_72%,rgb(2_6_23/0.92))]" />
 
-      <motion.h1
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 28, scale: 0.98 }}
-        animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="mx-auto max-w-6xl text-center text-balance text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-7xl lg:text-8xl"
-      >
-        Build the digital system your business should have had from day one.
-      </motion.h1>
+      <div className="relative mx-auto flex max-w-6xl flex-col items-center text-center">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 18, scale: 0.94 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mb-6 flex h-20 w-16 items-center justify-center sm:mb-8 sm:h-32 sm:w-28"
+        >
+          <Image
+            src="/brand/kapa-mark.png"
+            alt="Kapa Software Group"
+            width={587}
+            height={698}
+            priority
+            loading="eager"
+            className="h-full w-full object-contain drop-shadow-[0_0_34px_rgb(103_232_249_/_0.34)]"
+          />
+        </motion.div>
+        <motion.h1
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 28, scale: 0.98 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.08 }}
+          className="text-balance text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-7xl lg:text-8xl"
+        >
+          Build the digital system your business should have had from day one.
+        </motion.h1>
+      </div>
     </section>
   );
 }

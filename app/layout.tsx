@@ -1,10 +1,15 @@
 import type { Metadata, Viewport } from "next";
+import { WebsiteIntro } from "@/components/website-intro";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Kapa Software Group | Modern Websites & Software Systems",
   description:
     "Kapa Software Group builds modern websites, web applications, automations, and digital systems for growing businesses.",
+  icons: {
+    icon: "/brand/kapa-mark.png",
+    apple: "/brand/kapa-mark.png",
+  },
 };
 
 export const viewport: Viewport = {
@@ -32,6 +37,7 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className="font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <WebsiteIntro />
         {children}
       </body>
     </html>
