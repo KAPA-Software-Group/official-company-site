@@ -30,7 +30,7 @@ export function BrandLogo({
       </span>
       {showText ? (
         <span className="text-sm font-bold tracking-tight sm:text-base">
-          Kapa Software Group
+          Kapa Software
         </span>
       ) : null}
     </span>
