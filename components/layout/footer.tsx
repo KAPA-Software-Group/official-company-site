@@ -1,24 +1,9 @@
 import Link from "next/link";
 
-import { BrandLogo } from "@/components/brand-logo";
-
-const navLinks = ["Home", "Services", "Work", "Process", "About", "Contact"];
-const navHref: Record<string, string> = {
-  Home: "/",
-  Services: "/services",
-  Work: "/work",
-  Process: "/process",
-  About: "/about",
-  Contact: "/contact",
-};
-const serviceLinks = [
-  "Custom Websites",
-  "Web Applications",
-  "Landing Pages",
-  "Automation Workflows",
-  "Dashboards",
-  "Client Portals",
-];
+import { BrandLogo } from "@/components/layout/brand-logo";
+import { footerServiceLinks } from "@/lib/site-content";
+import { mailtoHref, siteConfig } from "@/lib/site-config";
+import { navItems, routes } from "@/lib/routes";
 
 export function Footer() {
   return (
@@ -33,23 +18,23 @@ export function Footer() {
             for growing businesses.
           </p>
           <a
-            href="mailto:hello@kapasoftwaregroup.com"
+            href={mailtoHref}
             className="mt-5 inline-block text-sm font-semibold text-primary hover:text-accent"
           >
-            hello@kapasoftwaregroup.com
+            {siteConfig.email}
           </a>
         </div>
 
         <div>
           <h2 className="text-sm font-bold text-foreground">Navigation</h2>
           <ul className="mt-4 space-y-3">
-            {navLinks.map((link) => (
-              <li key={link}>
+            {navItems.map((item) => (
+              <li key={item.href}>
                 <Link
-                  href={navHref[link]}
+                  href={item.href}
                   className="text-sm text-muted transition hover:text-primary"
                 >
-                  {link}
+                  {item.label}
                 </Link>
               </li>
             ))}
@@ -59,9 +44,9 @@ export function Footer() {
         <div>
           <h2 className="text-sm font-bold text-foreground">Services</h2>
           <ul className="mt-4 space-y-3">
-            {serviceLinks.map((link) => (
+            {footerServiceLinks.map((link) => (
               <li key={link}>
-                <Link href="/services" className="text-sm text-muted transition hover:text-primary">
+                <Link href={routes.services} className="text-sm text-muted transition hover:text-primary">
                   {link}
                 </Link>
               </li>
@@ -70,7 +55,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-3 border-t pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Kapa Software Group. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
         <p>Built for performance, clarity, and scale.</p>
       </div>
     </footer>

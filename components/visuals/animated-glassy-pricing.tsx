@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
-import { RippleButton } from "@/components/ui/multi-type-ripple-buttons";
+import type { EngagementPlan } from "@/lib/site-content";
+import { routes } from "@/lib/routes";
 
 const CheckIcon = ({ className }: { className?: string }) => (
   <svg
@@ -28,6 +30,17 @@ const ShaderCanvas = () => {
   const glBgColorLocationRef = useRef<WebGLUniformLocation | null>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const [backgroundColor, setBackgroundColor] = useState([1.0, 1.0, 1.0]);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -59,8 +72,9 @@ const ShaderCanvas = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const gl = canvas.getContext("webgl");
+    if (!canvas || prefersReducedMotion) return;
+    const canvasElement = canvas;
+    const gl = canvas.getContext("webgl")!;
     if (!gl) return;
     glRef.current = gl;
 
@@ -134,45 +148,78 @@ const ShaderCanvas = () => {
     glBgColorLocationRef.current = gl.getUniformLocation(program, "uBackgroundColor");
     gl.uniform3fv(glBgColorLocationRef.current, new Float32Array([1.0, 1.0, 1.0]));
 
-    let animationFrameId: number;
-    const render = (time: number) => {
+    let animationFrameId = 0;
+    let isVisible = true;
+    let isDocumentVisible = document.visibilityState === "visible";
+
+    function stopRendering() {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
+    }
+
+    function startRendering() {
+      if (!animationFrameId && isVisible && isDocumentVisible) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    }
+
+    function render(time: number) {
+      animationFrameId = 0;
       gl.uniform1f(iTimeLoc, time * 0.001);
-      gl.uniform2f(iResLoc, canvas.width, canvas.height);
+      gl.uniform2f(iResLoc, canvasElement.width, canvasElement.height);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      animationFrameId = requestAnimationFrame(render);
-    };
+      startRendering();
+    }
+
     const handleResize = () => {
-      const rect = canvas.parentElement?.getBoundingClientRect();
-      canvas.width = Math.max(1, Math.floor(rect?.width || window.innerWidth));
-      canvas.height = Math.max(1, Math.floor(rect?.height || window.innerHeight));
+      const rect = canvasElement.parentElement?.getBoundingClientRect();
+      canvasElement.width = Math.max(1, Math.floor(rect?.width || window.innerWidth));
+      canvasElement.height = Math.max(1, Math.floor(rect?.height || window.innerHeight));
       gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     };
+
     handleResize();
-    window.addEventListener("resize", handleResize);
-    animationFrameId = requestAnimationFrame(render);
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(canvasElement);
+
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        startRendering();
+      } else {
+        stopRendering();
+      }
+    });
+    intersectionObserver.observe(canvasElement);
+
+    const handleVisibilityChange = () => {
+      isDocumentVisible = document.visibilityState === "visible";
+      if (isDocumentVisible) {
+        startRendering();
+      } else {
+        stopRendering();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    startRendering();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      stopRendering();
       gl.deleteProgram(program);
       gl.deleteShader(vertexShader);
       gl.deleteShader(fragmentShader);
       if (buffer) gl.deleteBuffer(buffer);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return <canvas ref={canvasRef} className="absolute inset-0 z-0 block h-full w-full bg-background" />;
 };
-
-export interface PricingCardProps {
-  planName: string;
-  description: string;
-  price: string;
-  features: string[];
-  buttonText: string;
-  isPopular?: boolean;
-  buttonVariant?: "primary" | "secondary";
-}
 
 export const PricingCard = ({
   planName,
@@ -182,7 +229,7 @@ export const PricingCard = ({
   buttonText,
   isPopular = false,
   buttonVariant = "primary",
-}: PricingCardProps) => {
+}: EngagementPlan) => {
   const cardClasses = `
     liquid-glass backdrop-blur-[14px] bg-gradient-to-br rounded-2xl shadow-xl flex-1 w-full max-w-xs px-7 py-8 flex flex-col transition-all duration-300
     from-black/5 to-black/0 border border-black/10
@@ -224,14 +271,9 @@ export const PricingCard = ({
           </li>
         ))}
       </ul>
-      <RippleButton
-        className={buttonClasses.trim()}
-        onClick={() => {
-          window.location.href = "/contact";
-        }}
-      >
+      <Link href={routes.contact} className={buttonClasses.trim()}>
         {buttonText}
-      </RippleButton>
+      </Link>
     </div>
   );
 };
@@ -239,7 +281,7 @@ export const PricingCard = ({
 interface ModernPricingPageProps {
   title: React.ReactNode;
   subtitle: React.ReactNode;
-  plans: PricingCardProps[];
+  plans: EngagementPlan[];
   showAnimatedBackground?: boolean;
 }
 

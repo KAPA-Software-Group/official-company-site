@@ -1,15 +1,15 @@
-import { EngagementSection } from "@/components/engagement-section";
-import { PageHero } from "@/components/page-hero";
-import { ServicesSection } from "@/components/services-section";
+import { EngagementSection } from "@/components/sections/engagement-section";
+import { PageHero } from "@/components/sections/page-hero";
+import { ServicesSection } from "@/components/sections/services-section";
+import { pageHeroes } from "@/lib/site-content";
 
 export default function ServicesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Services"
-        title="Websites, apps, and systems built with modern execution."
-        subtitle="Explore the core services Kapa Software Group uses to turn digital ideas into polished business tools."
-        showVisual
+        eyebrow={pageHeroes.services.eyebrow}
+        title={pageHeroes.services.title}
+        subtitle={pageHeroes.services.subtitle}
       />
       <ServicesSection />
       <EngagementSection />

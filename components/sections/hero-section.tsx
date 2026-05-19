@@ -1,9 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 
-import { ShaderAnimation } from "@/components/ui/shader-animation";
+const ShaderAnimation = dynamic(
+  () => import("@/components/visuals/shader-animation").then((mod) => mod.ShaderAnimation),
+  { ssr: false },
+);
 
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -11,7 +15,7 @@ export function HeroSection() {
   return (
     <section className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 py-32 text-white">
       <div className="absolute inset-0 -z-30 opacity-35 mix-blend-screen">
-        <ShaderAnimation className="h-full w-full" />
+        <ShaderAnimation className="h-full w-full" disabled={shouldReduceMotion ?? false} />
       </div>
 
       <motion.div

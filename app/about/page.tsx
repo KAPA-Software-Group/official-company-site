@@ -1,14 +1,15 @@
-import { FAQSection } from "@/components/faq-section";
-import { PageHero } from "@/components/page-hero";
-import { WhyKapaSection } from "@/components/why-kapa-section";
+import { FAQSection } from "@/components/sections/faq-section";
+import { PageHero } from "@/components/sections/page-hero";
+import { WhyKapaSection } from "@/components/sections/why-kapa-section";
+import { pageHeroes } from "@/lib/site-content";
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About"
-        title="Modern software thinking for business websites and tools."
-        subtitle="Kapa Software Group focuses on clean design, scalable builds, and digital systems that support real operations."
+        eyebrow={pageHeroes.about.eyebrow}
+        title={pageHeroes.about.title}
+        subtitle={pageHeroes.about.subtitle}
       />
       <WhyKapaSection />
       <FAQSection />

@@ -4,21 +4,21 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const INTRO_KEY = "kapa-intro-seen";
+import { siteConfig } from "@/lib/site-config";
 
 export function WebsiteIntro() {
   const [show, setShow] = useState(true);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem(INTRO_KEY) === "true";
+    const hasSeenIntro = sessionStorage.getItem(siteConfig.introStorageKey) === "true";
 
     if (hasSeenIntro) {
       const frame = window.requestAnimationFrame(() => setShow(false));
       return () => window.cancelAnimationFrame(frame);
     }
 
-    sessionStorage.setItem(INTRO_KEY, "true");
+    sessionStorage.setItem(siteConfig.introStorageKey, "true");
 
     const duration = shouldReduceMotion ? 700 : 2600;
     const timer = window.setTimeout(() => setShow(false), duration);

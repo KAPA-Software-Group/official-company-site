@@ -1,4 +1,4 @@
-import { HeroSplineScene } from "@/components/hero-spline-scene";
+import { HeroSplineScene } from "@/components/visuals/hero-spline-scene";
 
 type PageHeroProps = {
   eyebrow: string;

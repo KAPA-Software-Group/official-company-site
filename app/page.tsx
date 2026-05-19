@@ -1,5 +1,5 @@
-import { CapabilityStrip } from "@/components/capability-strip";
-import { HeroSection } from "@/components/hero-section";
+import { CapabilityStrip } from "@/components/sections/capability-strip";
+import { HeroSection } from "@/components/sections/hero-section";
 
 export default function Home() {
   return (

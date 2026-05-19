@@ -1,13 +1,14 @@
-import { PageHero } from "@/components/page-hero";
-import { WorkSection } from "@/components/work-section";
+import { PageHero } from "@/components/sections/page-hero";
+import { WorkSection } from "@/components/sections/work-section";
+import { pageHeroes } from "@/lib/site-content";
 
 export default function WorkPage() {
   return (
     <>
       <PageHero
-        eyebrow="Work"
-        title="Project examples for websites, product pages, and tools."
-        subtitle="See the kinds of digital products and operating systems Kapa Software Group can shape for growing businesses."
+        eyebrow={pageHeroes.work.eyebrow}
+        title={pageHeroes.work.title}
+        subtitle={pageHeroes.work.subtitle}
       />
       <WorkSection />
     </>

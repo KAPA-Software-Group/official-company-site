@@ -5,23 +5,15 @@ import { ArrowRight, Mail, MessageSquare, User } from "lucide-react";
 import { FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
-import { LiquidButton } from "@/components/ui/liquid-glass-button";
-
-const emailAddress = "hello@kapasoftwaregroup.com";
+import {
+  contactFlowPaths,
+  createMailtoHref,
+  formFlowAuraPaths,
+} from "@/lib/contact";
+import { mailtoHref, siteConfig } from "@/lib/site-config";
 
 function ContactFlowBackground() {
   const shouldReduceMotion = useReducedMotion();
-  const paths = Array.from({ length: 18 }, (_, index) => ({
-    id: index,
-    d: `M${-90 + index * 18} ${620 - index * 18}C${180 + index * 22} ${
-      330 - index * 8
-    } ${520 - index * 16} ${210 + index * 10} ${760 + index * 18} ${
-      320 + index * 8
-    }C${980 + index * 16} ${420 + index * 10} ${1080 - index * 12} ${
-      640 - index * 14
-    } 1490 ${430 + index * 16}`,
-    width: 0.8 + index * 0.035,
-  }));
 
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -34,7 +26,7 @@ function ContactFlowBackground() {
         fill="none"
         aria-hidden="true"
       >
-        {paths.map((path) => (
+        {contactFlowPaths.map((path) => (
           <motion.path
             key={path.id}
             d={path.d}
@@ -66,11 +58,6 @@ function ContactFlowBackground() {
 
 function FormFlowAura() {
   const shouldReduceMotion = useReducedMotion();
-  const paths = [
-    "M28 128C164 8 520 -22 684 126C816 245 624 365 704 522",
-    "M4 328C126 194 292 166 458 206C626 246 690 360 740 438",
-    "M54 536C196 428 354 410 514 454C626 486 684 560 750 606",
-  ];
 
   return (
     <div className="pointer-events-none absolute -inset-10 -z-10">
@@ -82,7 +69,7 @@ function FormFlowAura() {
         fill="none"
         aria-hidden="true"
       >
-        {paths.map((path, index) => (
+        {formFlowAuraPaths.map((path, index) => (
           <motion.path
             key={path}
             d={path}
@@ -118,18 +105,7 @@ export function ContactSection() {
     const project = String(form.get("project") || "").trim();
     const message = String(form.get("message") || "").trim();
 
-    const subject = encodeURIComponent(`Project inquiry from ${name || "Kapa website"}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Project type: ${project}`,
-        "",
-        message,
-      ].join("\n"),
-    );
-
-    window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+    window.location.href = createMailtoHref({ name, email, project, message });
   }
 
   return (
@@ -145,20 +121,20 @@ export function ContactSection() {
             Send the project details and Kapa Software Group will respond with a clear next step.
           </p>
           <div className="mt-8 inline-block rounded-2xl bg-gradient-to-b from-white/12 to-black/10 p-px shadow-glow backdrop-blur">
-            <LiquidButton
-              className="px-8 py-6 text-base font-semibold text-foreground"
-              onClick={() => document.getElementById("project-message")?.scrollIntoView()}
+            <a
+              href="#project-message"
+              className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-6 text-base font-semibold text-foreground transition duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             >
               Start a Project
-              <ArrowRight className="ml-2 inline h-4 w-4" aria-hidden="true" />
-            </LiquidButton>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
           </div>
           <a
-            href={`mailto:${emailAddress}`}
+            href={mailtoHref}
             className="mt-6 flex w-max items-center gap-3 text-sm font-semibold text-primary transition hover:text-accent"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
-            {emailAddress}
+            {siteConfig.email}
           </a>
         </div>
 

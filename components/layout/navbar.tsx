@@ -6,18 +6,10 @@ import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
-import { BrandLogo } from "@/components/brand-logo";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { BrandLogo } from "@/components/layout/brand-logo";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { navItems, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "Process", href: "/process" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
 
 const menuVariants: Variants = {
   closed: {
@@ -89,7 +81,7 @@ export function Navbar() {
           transition={{ duration: 2.4, ease: "easeInOut", repeat: Infinity, repeatDelay: 3.5 }}
         />
         <motion.div whileHover={shouldReduceMotion ? undefined : { scale: 1.05, rotate: -2 }} whileTap={{ scale: 0.96 }}>
-          <Link href="/" className="relative z-10 flex items-center gap-3" aria-label="Kapa Software Group home">
+          <Link href={routes.home} className="relative z-10 flex items-center gap-3" aria-label="Kapa Software Group home">
           <BrandLogo priority />
           </Link>
         </motion.div>
@@ -139,7 +131,7 @@ export function Navbar() {
           <motion.div whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               className="group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full border border-primary/55 bg-[rgb(var(--primary)/0.58)] px-5 text-sm font-bold text-slate-950 shadow-[inset_1px_1px_0_rgb(255_255_255/0.42),inset_-1px_-1px_0_rgb(2_6_23/0.12),0_10px_32px_rgb(56_189_248/0.24)] backdrop-blur-xl transition hover:bg-[rgb(var(--primary)/0.72)] hover:shadow-[inset_1px_1px_0_rgb(255_255_255/0.5),inset_-1px_-1px_0_rgb(2_6_23/0.14),0_16px_46px_rgb(56_189_248/0.42)] dark:text-slate-950"
-              href="/contact"
+              href={routes.contact}
             >
               <span className="absolute inset-0 bg-gradient-to-b from-white/34 via-white/10 to-transparent" />
               <span className="absolute inset-y-0 left-[-70%] w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/55 to-transparent transition-all duration-500 group-hover:left-[125%]" />
@@ -239,7 +231,7 @@ export function Navbar() {
               >
                 <Link
                   className="group relative mt-2 inline-flex h-11 w-full items-center justify-center overflow-hidden rounded-full border border-primary/55 bg-[rgb(var(--primary)/0.58)] px-5 text-sm font-bold text-slate-950 shadow-[inset_1px_1px_0_rgb(255_255_255/0.42),inset_-1px_-1px_0_rgb(2_6_23/0.12),0_10px_32px_rgb(56_189_248/0.24)] backdrop-blur-xl transition hover:bg-[rgb(var(--primary)/0.72)] dark:text-slate-950"
-                  href="/contact"
+                  href={routes.contact}
                   onClick={() => setOpen(false)}
                 >
                   <span className="absolute inset-0 bg-gradient-to-b from-white/34 via-white/10 to-transparent" />

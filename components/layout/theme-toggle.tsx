@@ -3,13 +3,14 @@
 import { Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/lib/site-config";
 
 export function ThemeToggle() {
   const toggleTheme = () => {
     const isDark = document.documentElement.classList.contains("dark");
     const next = isDark ? "light" : "dark";
     document.documentElement.classList.toggle("dark", next === "dark");
-    localStorage.setItem("kapa-theme", next);
+    localStorage.setItem(siteConfig.themeStorageKey, next);
   };
 
   return (
