@@ -3,19 +3,40 @@
 import { motion, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const ShaderAnimation = dynamic(
   () => import("@/components/visuals/shader-animation").then((mod) => mod.ShaderAnimation),
   { ssr: false },
 );
 
+type IdleCapableWindow = Pick<Window, "setTimeout" | "clearTimeout"> & {
+  requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+  cancelIdleCallback?: (requestId: number) => void;
+};
+
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
+  const [showShader, setShowShader] = useState(false);
+
+  useEffect(() => {
+    if (shouldReduceMotion !== false || showShader) return;
+
+    const browserWindow: IdleCapableWindow = window;
+
+    if (browserWindow.requestIdleCallback) {
+      const requestId = browserWindow.requestIdleCallback(() => setShowShader(true), { timeout: 1200 });
+      return () => browserWindow.cancelIdleCallback?.(requestId);
+    }
+
+    const timerId = browserWindow.setTimeout(() => setShowShader(true), 250);
+    return () => browserWindow.clearTimeout(timerId);
+  }, [shouldReduceMotion, showShader]);
 
   return (
     <section className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 py-32 text-white">
       <div className="absolute inset-0 -z-30 opacity-35 mix-blend-screen">
-        <ShaderAnimation className="h-full w-full" disabled={shouldReduceMotion ?? false} />
+        {showShader ? <ShaderAnimation className="h-full w-full" disabled={shouldReduceMotion ?? false} /> : null}
       </div>
 
       <motion.div

@@ -5,11 +5,14 @@ import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kapa Software Group | Modern Websites & Software Systems",
+  title: {
+    default: "Kapa Software Group | Modern Websites & Software Systems",
+    template: "%s | Kapa Software Group",
+  },
   description: siteConfig.description,
   icons: {
-    icon: "/brand/kapa-mark.png",
-    apple: "/brand/kapa-mark.png",
+    icon: "/brand/kapa-icon.png",
+    apple: "/brand/kapa-apple-icon.png",
   },
 };
 

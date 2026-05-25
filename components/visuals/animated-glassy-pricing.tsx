@@ -30,7 +30,27 @@ const ShaderCanvas = () => {
   const glBgColorLocationRef = useRef<WebGLUniformLocation | null>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const [backgroundColor, setBackgroundColor] = useState([1.0, 1.0, 1.0]);
+  const backgroundColorRef = useRef(backgroundColor);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [mayRender, setMayRender] = useState(false);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || mayRender) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMayRender(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "240px" },
+    );
+
+    observer.observe(canvas);
+    return () => observer.disconnect();
+  }, [mayRender]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -46,7 +66,9 @@ const ShaderCanvas = () => {
     const root = document.documentElement;
     const updateColor = () => {
       const isDark = root.classList.contains("dark");
-      setBackgroundColor(isDark ? [0.01, 0.03, 0.09] : [0.97, 0.98, 0.99]);
+      const nextColor = isDark ? [0.01, 0.03, 0.09] : [0.97, 0.98, 0.99];
+      backgroundColorRef.current = nextColor;
+      setBackgroundColor(nextColor);
     };
     updateColor();
     const observer = new MutationObserver((mutationsList) => {
@@ -72,7 +94,7 @@ const ShaderCanvas = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || prefersReducedMotion) return;
+    if (!canvas || prefersReducedMotion || !mayRender) return;
     const canvasElement = canvas;
     const gl = canvas.getContext("webgl")!;
     if (!gl) return;
@@ -146,7 +168,7 @@ const ShaderCanvas = () => {
     const iTimeLoc = gl.getUniformLocation(program, "iTime");
     const iResLoc = gl.getUniformLocation(program, "iResolution");
     glBgColorLocationRef.current = gl.getUniformLocation(program, "uBackgroundColor");
-    gl.uniform3fv(glBgColorLocationRef.current, new Float32Array([1.0, 1.0, 1.0]));
+    gl.uniform3fv(glBgColorLocationRef.current, new Float32Array(backgroundColorRef.current));
 
     let animationFrameId = 0;
     let isVisible = true;
@@ -216,7 +238,7 @@ const ShaderCanvas = () => {
       gl.deleteShader(fragmentShader);
       if (buffer) gl.deleteBuffer(buffer);
     };
-  }, [prefersReducedMotion]);
+  }, [mayRender, prefersReducedMotion]);
 
   return <canvas ref={canvasRef} className="absolute inset-0 z-0 block h-full w-full bg-background" />;
 };

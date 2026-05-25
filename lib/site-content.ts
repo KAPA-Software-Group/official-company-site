@@ -22,7 +22,6 @@ export type PageHeroContent = {
   eyebrow: string;
   title: string;
   subtitle: string;
-  showVisual?: boolean;
 };
 
 export type WorkProject = {
@@ -49,7 +48,6 @@ export const pageHeroes = {
     title: "Websites, apps, and systems built with modern execution.",
     subtitle:
       "Explore the core services Kapa Software Group uses to turn digital ideas into polished business tools.",
-    showVisual: true,
   },
   work: {
     eyebrow: "Work",
