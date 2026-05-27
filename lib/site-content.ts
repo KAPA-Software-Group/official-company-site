@@ -47,13 +47,13 @@ export const pageHeroes = {
     eyebrow: "Services",
     title: "Websites, apps, and systems built with modern execution.",
     subtitle:
-      "Explore the core services Kapa Software Group uses to turn digital ideas into polished business tools.",
+      "Explore the core services Kapa Software uses to turn digital ideas into polished business tools.",
   },
   work: {
     eyebrow: "Work",
     title: "Project examples for websites, product pages, and tools.",
     subtitle:
-      "See the kinds of digital products and operating systems Kapa Software Group can shape for growing businesses.",
+      "See the kinds of digital products and operating systems Kapa Software can shape for growing businesses.",
   },
   process: {
     eyebrow: "Process",
@@ -65,7 +65,7 @@ export const pageHeroes = {
     eyebrow: "About",
     title: "Modern software thinking for business websites and tools.",
     subtitle:
-      "Kapa Software Group focuses on clean design, scalable builds, and digital systems that support real operations.",
+      "Kapa Software focuses on clean design, scalable builds, and digital systems that support real operations.",
   },
 } satisfies Record<string, PageHeroContent>;
 

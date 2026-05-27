@@ -10,7 +10,7 @@ export function Footer() {
     <footer className="border-t bg-surface/50 px-4 py-12">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_0.7fr_0.8fr]">
         <div>
-          <Link href="/" className="flex items-center gap-3" aria-label="Kapa Software Group home">
+          <Link href="/" className="flex items-center gap-3" aria-label="Kapa Software home">
             <BrandLogo />
           </Link>
           <p className="mt-5 max-w-md text-sm leading-7 text-muted">

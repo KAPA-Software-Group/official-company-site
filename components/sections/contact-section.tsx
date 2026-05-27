@@ -100,12 +100,13 @@ export function ContactSection() {
     event.preventDefault();
 
     const form = new FormData(event.currentTarget);
-    const name = String(form.get("name") || "").trim();
-    const email = String(form.get("email") || "").trim();
-    const project = String(form.get("project") || "").trim();
-    const message = String(form.get("message") || "").trim();
 
-    window.location.href = createMailtoHref({ name, email, project, message });
+    window.location.href = createMailtoHref({
+      name: String(form.get("name") || "").trim(),
+      email: String(form.get("email") || "").trim(),
+      project: String(form.get("project") || "").trim(),
+      message: String(form.get("message") || "").trim(),
+    });
   }
 
   return (
@@ -118,7 +119,7 @@ export function ContactSection() {
             Let&apos;s build it properly.
           </h1>
           <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-muted">
-            Send the project details and Kapa Software Group will respond with a clear next step.
+            Send the project details and Kapa Software will respond with a clear next step.
           </p>
           <div className="mt-8 inline-block rounded-2xl bg-gradient-to-b from-white/12 to-black/10 p-px shadow-glow backdrop-blur">
             <a
@@ -154,6 +155,7 @@ export function ContactSection() {
                 <input
                   name="name"
                   required
+                  maxLength={100}
                   autoComplete="name"
                   className="h-12 w-full rounded-2xl border bg-surface/70 px-4 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/30"
                   placeholder="Your name"
@@ -168,6 +170,7 @@ export function ContactSection() {
                   name="email"
                   type="email"
                   required
+                  maxLength={254}
                   autoComplete="email"
                   className="h-12 w-full rounded-2xl border bg-surface/70 px-4 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/30"
                   placeholder="you@company.com"
@@ -181,6 +184,7 @@ export function ContactSection() {
               </span>
               <input
                 name="project"
+                maxLength={120}
                 className="h-12 w-full rounded-2xl border bg-surface/70 px-4 text-sm text-foreground outline-none transition placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/30"
                 placeholder="Website, app, automation, dashboard"
               />
@@ -194,6 +198,7 @@ export function ContactSection() {
               <textarea
                 name="message"
                 required
+                maxLength={4000}
                 rows={7}
                 className="w-full resize-none rounded-2xl border bg-surface/70 px-4 py-3 text-sm leading-6 text-foreground outline-none transition placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/30"
                 placeholder="Tell us what you want to build, timeline, and anything important."

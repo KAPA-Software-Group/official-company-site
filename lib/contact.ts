@@ -5,9 +5,12 @@ export type ContactFormFields = {
   email: string;
   project: string;
   message: string;
+  website: string;
 };
 
-export function createMailtoHref(fields: ContactFormFields) {
+type MailtoContactFields = Omit<ContactFormFields, "website">;
+
+export function createMailtoHref(fields: MailtoContactFields) {
   const subject = encodeURIComponent(
     `Project inquiry from ${fields.name || "Kapa website"}`,
   );

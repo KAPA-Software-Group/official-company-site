@@ -12,7 +12,7 @@ export function WorkSection() {
       <SectionHeading
         eyebrow="Selected project examples"
         title="Digital products designed to look sharp and perform."
-        subtitle="Example project formats that show how Kapa Software Group can shape websites, product pages, and internal tools."
+        subtitle="Example project formats that show how Kapa Software can shape websites, product pages, and internal tools."
       />
 
       <div className="mt-14 grid gap-5 lg:grid-cols-3">

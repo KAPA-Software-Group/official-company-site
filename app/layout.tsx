@@ -6,8 +6,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Kapa Software Group | Modern Websites & Software Systems",
-    template: "%s | Kapa Software Group",
+    default: "Kapa Software | Modern Websites & Software Systems",
+    template: "%s | Kapa Software",
   },
   description: siteConfig.description,
   icons: {

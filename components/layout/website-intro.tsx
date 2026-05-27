@@ -60,7 +60,7 @@ export function WebsiteIntro() {
             >
               <Image
                 src="/brand/kapa-mark.png"
-                alt="Kapa Software Group"
+                alt="Kapa Software"
                 width={587}
                 height={698}
                 priority
@@ -97,7 +97,7 @@ export function WebsiteIntro() {
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: "easeOut", delay: 1.22 }}
             >
-              Software Group
+              Software
             </motion.p>
           </div>
         </motion.div>

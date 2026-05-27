@@ -69,7 +69,7 @@ export function HeroSection() {
         >
           <Image
             src="/brand/kapa-mark.png"
-            alt="Kapa Software Group"
+            alt="Kapa Software"
             width={587}
             height={698}
             priority

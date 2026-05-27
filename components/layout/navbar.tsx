@@ -81,7 +81,7 @@ export function Navbar() {
           transition={{ duration: 2.4, ease: "easeInOut", repeat: Infinity, repeatDelay: 3.5 }}
         />
         <motion.div whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }} whileTap={{ scale: 0.96 }}>
-          <Link href={routes.home} className="relative z-10 flex items-center gap-3" aria-label="Kapa Software Group home">
+          <Link href={routes.home} className="relative z-10 flex items-center gap-3" aria-label="Kapa Software home">
           <BrandLogo priority />
           </Link>
         </motion.div>

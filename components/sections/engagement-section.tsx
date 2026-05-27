@@ -17,7 +17,6 @@ export function EngagementSection() {
           }
           subtitle="Flexible engagement models for websites, growth systems, and custom software."
           plans={engagementPlans}
-          showAnimatedBackground
         />
       </div>
     </SectionShell>
