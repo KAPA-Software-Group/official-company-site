@@ -16,7 +16,7 @@ export function ThemeToggle() {
   return (
     <Button
       aria-label="Toggle color mode"
-      className="border bg-surface/70 text-foreground hover:bg-primary/10"
+      className="rounded-md border bg-surface/45 text-muted hover:border-primary/40 hover:bg-surface/60 hover:text-foreground"
       size="icon"
       variant="ghost"
       onClick={toggleTheme}

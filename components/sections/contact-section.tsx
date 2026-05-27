@@ -1,99 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Mail, MessageSquare, User } from "lucide-react";
 import { FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  contactFlowPaths,
-  createMailtoHref,
-  formFlowAuraPaths,
-} from "@/lib/contact";
+import { createMailtoHref } from "@/lib/contact";
 import { mailtoHref, siteConfig } from "@/lib/site-config";
-
-function ContactFlowBackground() {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--background)/0.12),rgb(var(--background)/0.94)_82%)]" />
-      <div className="absolute right-[-12%] top-28 h-[620px] w-[62%] rounded-[3rem] bg-primary/10 blur-3xl" />
-      <svg
-        className="absolute inset-0 h-full w-full text-primary"
-        viewBox="0 0 1400 820"
-        preserveAspectRatio="none"
-        fill="none"
-        aria-hidden="true"
-      >
-        {contactFlowPaths.map((path) => (
-          <motion.path
-            key={path.id}
-            d={path.d}
-            stroke="currentColor"
-            strokeWidth={path.width}
-            strokeOpacity={0.06 + path.id * 0.012}
-            initial={shouldReduceMotion ? false : { pathLength: 0.18, opacity: 0 }}
-            animate={
-              shouldReduceMotion
-                ? undefined
-                : {
-                    pathLength: [0.18, 1, 0.18],
-                    pathOffset: [0, 0.9, 0],
-                    opacity: [0.22, 0.52, 0.22],
-                  }
-            }
-            transition={{
-              duration: 16 + path.id * 0.45,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-              delay: path.id * 0.12,
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  );
-}
-
-function FormFlowAura() {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <div className="pointer-events-none absolute -inset-10 -z-10">
-      <div className="absolute inset-8 rounded-[3rem] bg-primary/10 blur-3xl" />
-      <svg
-        className="absolute inset-0 h-full w-full text-primary"
-        viewBox="0 0 760 640"
-        preserveAspectRatio="none"
-        fill="none"
-        aria-hidden="true"
-      >
-        {formFlowAuraPaths.map((path, index) => (
-          <motion.path
-            key={path}
-            d={path}
-            stroke="currentColor"
-            strokeWidth={1.1 + index * 0.2}
-            strokeOpacity={0.3 - index * 0.04}
-            initial={shouldReduceMotion ? false : { pathLength: 0.25, opacity: 0 }}
-            animate={
-              shouldReduceMotion
-                ? undefined
-                : { pathLength: [0.25, 1, 0.25], pathOffset: [0, 0.8, 0], opacity: [0.28, 0.72, 0.28] }
-            }
-            transition={{
-              duration: 10 + index * 2.5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: index * 0.5,
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  );
-}
 
 export function ContactSection() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -111,11 +23,10 @@ export function ContactSection() {
 
   return (
     <section className="relative isolate min-h-screen overflow-hidden bg-radial-blue px-4 pb-20 pt-36 sm:pt-40 lg:pt-44">
-      <ContactFlowBackground />
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">Contact</p>
-          <h1 className="mt-5 max-w-3xl text-balance text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl">
+          <h1 className="mt-5 max-w-3xl text-balance font-sans text-5xl font-black leading-[0.95] tracking-tight text-foreground sm:text-7xl">
             Let&apos;s build it properly.
           </h1>
           <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-muted">
@@ -140,7 +51,6 @@ export function ContactSection() {
         </div>
 
         <div className="relative isolate">
-          <FormFlowAura />
           <form
             id="project-message"
             onSubmit={handleSubmit}

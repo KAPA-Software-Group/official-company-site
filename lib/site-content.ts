@@ -1,20 +1,25 @@
 import type { LucideIcon } from "lucide-react";
 import {
   AppWindow,
-  Blocks,
-  BrainCircuit,
-  CalendarCheck,
+  Compass,
   Gauge,
-  IterationCcw,
   LayoutTemplate,
-  Layers3,
   PanelsTopLeft,
+  PenTool,
+  Wrench,
   Workflow,
 } from "lucide-react";
 
-export type IconCard = {
+export type StudioValue = {
   title: string;
   description: string;
+  icon: LucideIcon;
+};
+
+export type ServiceItem = {
+  title: string;
+  description: string;
+  output: string;
   icon: LucideIcon;
 };
 
@@ -26,46 +31,43 @@ export type PageHeroContent = {
 
 export type WorkProject = {
   title: string;
-  type: string;
+  category: string;
   description: string;
   tags: string[];
-  bars: number[];
 };
 
 export type EngagementPlan = {
   planName: string;
   description: string;
-  price: string;
+  suitedFor: string;
   features: string[];
   buttonText: string;
-  isPopular?: boolean;
-  buttonVariant?: "primary" | "secondary";
 };
 
 export const pageHeroes = {
   services: {
-    eyebrow: "Services",
-    title: "Websites, apps, and systems built with modern execution.",
+    eyebrow: "Capabilities",
+    title: "Digital work tied to a concrete business need.",
     subtitle:
-      "Explore the core services Kapa Software uses to turn digital ideas into polished business tools.",
+      "Websites, product pages, internal tools, and workflow improvements designed and built with clear scope.",
   },
   work: {
     eyebrow: "Work",
-    title: "Project examples for websites, product pages, and tools.",
+    title: "Interface formats built around real use.",
     subtitle:
-      "See the kinds of digital products and operating systems Kapa Software can shape for growing businesses.",
+      "A focused look at websites and software interfaces designed to make customer and team journeys clearer.",
   },
   process: {
     eyebrow: "Process",
-    title: "A practical path from first idea to live product.",
+    title: "Clear decisions before polished delivery.",
     subtitle:
-      "The process keeps scope clear, design focused, and development moving toward a launch-ready system.",
+      "A compact working process that defines the problem, establishes direction, builds carefully, and supports the release.",
   },
   about: {
-    eyebrow: "About",
-    title: "Modern software thinking for business websites and tools.",
+    eyebrow: "Studio",
+    title: "Software and design work with practical standards.",
     subtitle:
-      "Kapa Software focuses on clean design, scalable builds, and digital systems that support real operations.",
+      "Kapa Software builds considered digital products for teams that value clarity, maintainability, and a credible customer experience.",
   },
 } satisfies Record<string, PageHeroContent>;
 
@@ -87,194 +89,171 @@ export const capabilityCarouselItems = [
   ...capabilities,
 ];
 
-export const services: IconCard[] = [
+export const services: ServiceItem[] = [
   {
-    title: "Custom Websites",
+    title: "Websites",
     description:
-      "High-performing marketing sites built with strong structure, clear messaging, and premium visual systems.",
+      "Clear, credible company websites built around services, proof, and an easy route to inquiry.",
+    output: "Architecture, interface design, responsive build",
     icon: PanelsTopLeft,
   },
   {
-    title: "Web Applications",
+    title: "Product Pages",
     description:
-      "Modern app interfaces, user flows, and product foundations for business-critical workflows.",
-    icon: AppWindow,
-  },
-  {
-    title: "Landing Pages",
-    description:
-      "Focused conversion pages for campaigns, launches, offers, and targeted service lines.",
+      "Focused pages that explain an offer, support a launch, and give prospective users a useful next step.",
+    output: "Messaging structure, landing pages, analytics setup",
     icon: LayoutTemplate,
   },
   {
-    title: "Booking & Intake Systems",
+    title: "Internal Tools",
     description:
-      "Streamlined forms, booking flows, routing logic, and intake experiences that reduce manual work.",
-    icon: CalendarCheck,
+      "Interfaces for teams who need visibility into work, clients, requests, or operational status.",
+    output: "Dashboards, portals, workflow interfaces",
+    icon: AppWindow,
   },
   {
-    title: "Business Automation",
+    title: "Automation & Improvement",
     description:
-      "Connected workflows that move data, trigger actions, and keep repetitive operations consistent.",
+      "Practical improvements that remove repetitive handoffs and strengthen an existing digital product.",
+    output: "Integrations, performance, product iteration",
     icon: Workflow,
-  },
-  {
-    title: "Dashboards & Client Portals",
-    description:
-      "Operational dashboards and secure client-facing systems for visibility, reporting, and service delivery.",
-    icon: Gauge,
   },
 ];
 
 export const projects: WorkProject[] = [
   {
-    title: "Clinic Website Redesign",
-    type: "Healthcare website",
+    title: "Healthcare Website Redesign",
+    category: "Public-facing website",
     description:
-      "A sharper service site structure with appointment-focused paths and trust-building content sections.",
-    tags: ["Next.js", "SEO", "Booking"],
-    bars: [38, 66, 52, 78],
+      "A cleaner site structure for a clinic with clearer service pages, stronger trust signals, and a smoother booking path.",
+    tags: ["Website Design", "UX", "Booking Flow"],
   },
   {
     title: "SaaS Landing Page",
-    type: "Product marketing",
+    category: "Product launch",
     description:
-      "A conversion-focused launch page with feature storytelling, pricing structure, and analytics setup.",
-    tags: ["React", "Motion", "Analytics"],
-    bars: [72, 42, 88, 62],
+      "A launch-ready product page built to explain the offer, validate demand, and convert early users.",
+    tags: ["Landing Page", "Copy", "Analytics"],
   },
   {
     title: "Operations Dashboard",
-    type: "Internal software",
+    category: "Internal software",
     description:
-      "A clean operational command center for monitoring work, surfacing priorities, and reducing manual reporting.",
-    tags: ["Dashboards", "API", "Automation"],
-    bars: [48, 82, 58, 92],
+      "An internal tool interface for surfacing priorities, tracking work, and reducing manual reporting.",
+    tags: ["Dashboard", "Workflow", "Automation"],
   },
 ];
 
 export const processSteps = [
   {
-    title: "Discover",
+    title: "Frame",
     description:
-      "We define goals, users, competitors, features, and the business outcome.",
+      "Define the audience, the operating problem, and the outcome the product needs to support.",
   },
   {
-    title: "Design",
+    title: "Structure",
     description:
-      "We create the visual direction, page structure, and core user flows.",
+      "Set the information hierarchy, user paths, and visual direction before implementation.",
   },
   {
     title: "Build",
     description:
-      "We develop a fast, responsive, scalable product using a modern stack.",
+      "Develop responsive interfaces and integrations with maintainable, production-ready code.",
   },
   {
-    title: "Launch",
+    title: "Release",
     description:
-      "We test, deploy, connect analytics, and prepare the site for real users.",
+      "Test key paths, prepare deployment, and connect measurement where it serves the project.",
   },
   {
-    title: "Optimize",
+    title: "Refine",
     description:
-      "We improve based on feedback, performance, and business needs.",
+      "Improve pages and workflows as real use reveals better priorities.",
   },
 ];
 
-export const kapaValues: IconCard[] = [
+export const kapaValues: StudioValue[] = [
   {
-    title: "Business-first thinking",
+    title: "Useful strategy",
     description:
-      "Every interface and feature is shaped around the outcome it needs to create.",
-    icon: BrainCircuit,
+      "Recommendations are grounded in the decision a visitor or staff member needs to make.",
+    icon: Compass,
   },
   {
-    title: "Modern technical stack",
+    title: "Considered design",
     description:
-      "Fast, maintainable foundations built with tools that scale beyond launch.",
-    icon: Blocks,
+      "Layouts, language, and interactions establish trust without visual noise.",
+    icon: PenTool,
   },
   {
-    title: "Clean design systems",
+    title: "Durable builds",
     description:
-      "Reusable visual patterns that make the product feel sharp and consistent.",
-    icon: Layers3,
+      "Technical foundations stay readable, responsive, and straightforward to extend.",
+    icon: Wrench,
   },
   {
-    title: "Fast iteration",
+    title: "Measured improvement",
     description:
-      "Focused releases, practical feedback loops, and improvements that keep momentum.",
-    icon: IterationCcw,
+      "Post-launch changes follow actual needs rather than unnecessary features.",
+    icon: Gauge,
   },
 ];
 
 export const faqs = [
   {
-    question: "What types of businesses do you work with?",
+    question: "What kinds of teams does Kapa Software work with?",
     answer:
-      "We work with growing service businesses, startups, local companies, and teams that need sharper websites or practical software systems.",
-  },
-  {
-    question: "Do you only build websites?",
-    answer:
-      "No. We build websites, web applications, dashboards, automations, portals, booking systems, and custom digital workflows.",
+      "Service businesses, product teams, and operations-led companies that need a stronger website or a focused software tool.",
   },
   {
     question: "Can you redesign an existing website?",
     answer:
-      "Yes. We can improve structure, visuals, performance, messaging, conversion paths, and technical foundations.",
+      "Yes. A redesign can cover information structure, interface design, messaging, performance, and the path to inquiry or booking.",
   },
   {
-    question: "Do you offer ongoing support?",
+    question: "Do projects include internal software?",
     answer:
-      "Yes. Support can include maintenance, new pages, performance improvements, analytics, automation updates, and product iteration.",
+      "Yes. Dashboards, client portals, workflow interfaces, and automations are appropriate when a team has a defined operational need.",
   },
   {
-    question: "How long does a typical project take?",
+    question: "Is ongoing support available?",
     answer:
-      "Simple websites often take a few weeks. Larger websites, applications, and systems depend on scope, integrations, and content readiness.",
+      "Yes. Support may include maintenance, new pages, performance work, analytics review, and product iteration.",
+  },
+  {
+    question: "How is a project scoped?",
+    answer:
+      "Scope follows the pages, flows, integrations, content readiness, and release requirements involved. Initial discussions establish the right starting point.",
   },
 ];
 
 export const engagementPlans: EngagementPlan[] = [
   {
-    planName: "Starter",
-    description: "Clean online presence for small businesses.",
-    price: "Website",
-    features: ["3-5 core pages", "Responsive design", "Basic SEO setup", "Contact form"],
-    buttonText: "Start Starter",
-    buttonVariant: "secondary",
+    planName: "Company Website",
+    description: "A clear public presence for a service or specialist business.",
+    suitedFor: "Positioning, trust, inquiries",
+    features: ["Page structure and messaging", "Custom responsive interface", "Contact or booking path"],
+    buttonText: "Discuss a website",
   },
   {
-    planName: "Growth",
-    description: "Sharper positioning and conversion structure.",
-    price: "Website",
-    features: [
-      "Custom design system",
-      "Landing pages",
-      "Analytics setup",
-      "CMS/blog-ready structure",
-      "Conversion-focused sections",
-    ],
-    buttonText: "Start Growth",
-    isPopular: true,
-    buttonVariant: "primary",
+    planName: "Product Launch",
+    description: "A focused presentation for a new offer or software product.",
+    suitedFor: "Explanation, validation, conversion",
+    features: ["Landing page system", "Calls to action and forms", "Analytics-ready delivery"],
+    buttonText: "Discuss a launch",
   },
   {
-    planName: "Custom",
-    description: "Internal tools and digital platforms.",
-    price: "Software",
-    features: ["Web apps", "Dashboards", "Client portals", "Automations", "Integrations"],
-    buttonText: "Discuss Custom",
-    buttonVariant: "primary",
+    planName: "Operational Tool",
+    description: "A purpose-built interface for a repeated internal process.",
+    suitedFor: "Visibility, workflow, automation",
+    features: ["Workflow definition", "Dashboard or portal UI", "Integration planning"],
+    buttonText: "Discuss a tool",
   },
 ];
 
 export const footerServiceLinks = [
-  "Custom Websites",
-  "Web Applications",
-  "Landing Pages",
-  "Automation Workflows",
-  "Dashboards",
-  "Client Portals",
+  "Websites",
+  "Product Pages",
+  "Internal Tools",
+  "Workflow Automation",
 ];

@@ -1,26 +1,30 @@
 import { SectionShell } from "@/components/sections/section-shell";
-import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/visuals/reveal";
 import { kapaValues } from "@/lib/site-content";
 
 export function WhyKapaSection() {
   return (
-    <SectionShell id="about" className="bg-surface/35">
-      <SectionHeading title="Practical execution with a modern software mindset." />
+    <SectionShell id="about" className="border-b">
+      <div className="grid gap-12 lg:grid-cols-[0.88fr_1fr] lg:gap-20">
+        <SectionHeading
+          eyebrow="Approach"
+          align="left"
+          title="Taste supported by useful decisions."
+          subtitle="A premium digital product is not decoration. It is clear language, considered structure, dependable code, and details that respect users."
+        />
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {kapaValues.map((value, index) => (
-          <Reveal key={value.title} delay={index * 0.07}>
-            <Card className="h-full p-6 hover:-translate-y-1 hover:border-primary/55 hover:shadow-glow">
-              <div className="mb-6 grid h-12 w-12 place-items-center rounded-2xl border bg-primary/10 text-primary">
-                <value.icon className="h-6 w-6" aria-hidden="true" />
-              </div>
-              <h3 className="text-lg font-bold text-foreground">{value.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted">{value.description}</p>
-            </Card>
-          </Reveal>
-        ))}
+        <div className="grid gap-x-8 border-t sm:grid-cols-2">
+          {kapaValues.map((value, index) => (
+            <Reveal key={value.title} delay={index * 0.05}>
+              <article className="border-b py-7 sm:min-h-52">
+                <value.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                <h3 className="mt-6 text-lg font-semibold tracking-[-0.02em] text-foreground">{value.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted">{value.description}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </SectionShell>
   );

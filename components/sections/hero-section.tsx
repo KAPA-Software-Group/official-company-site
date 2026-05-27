@@ -81,7 +81,7 @@ export function HeroSection() {
           initial={shouldReduceMotion ? false : { opacity: 0, y: 28, scale: 0.98 }}
           animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.08 }}
-          className="text-balance text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-7xl lg:text-8xl"
+          className="text-balance font-sans text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-7xl lg:text-8xl"
         >
           Build the digital system your business should have had from day one.
         </motion.h1>

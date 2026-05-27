@@ -1,8 +1,21 @@
 import type { Metadata, Viewport } from "next";
+import { Inter, Manrope } from "next/font/google";
 import { SiteShell } from "@/components/layout/site-shell";
 import { WebsiteIntro } from "@/components/layout/website-intro";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -18,8 +31,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
-    { media: "(prefers-color-scheme: dark)", color: "#020617" },
+    { media: "(prefers-color-scheme: light)", color: "#f8f7f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#090c0f" },
   ],
 };
 
@@ -39,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className="font-sans antialiased">
+      <body className={`${inter.variable} ${manrope.variable} font-sans antialiased`}>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <WebsiteIntro />
         <SiteShell>{children}</SiteShell>

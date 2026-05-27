@@ -6,15 +6,17 @@ type PageHeroProps = {
 
 export function PageHero({ eyebrow, title, subtitle }: PageHeroProps) {
   return (
-    <section className="relative isolate overflow-hidden bg-radial-blue px-4 pb-16 pt-36 sm:pt-40 lg:pb-20 lg:pt-44">
-      <div className="mx-auto max-w-7xl">
+    <section className="page-wash border-b px-5 pb-14 pt-32 sm:px-6 sm:pb-20 sm:pt-40 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-9 lg:grid-cols-[1fr_20rem] lg:items-end lg:gap-16">
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
-          <h1 className="mt-5 max-w-4xl text-balance text-4xl font-black tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-primary">{eyebrow}</p>
+          <h1 className="mt-6 max-w-5xl text-balance font-display text-4xl font-semibold leading-[1.02] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[4.5rem]">
             {title}
           </h1>
-          <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-muted">{subtitle}</p>
         </div>
+        <p className="border-l border-primary/45 pl-5 text-base leading-7 text-muted">
+          {subtitle}
+        </p>
       </div>
     </section>
   );

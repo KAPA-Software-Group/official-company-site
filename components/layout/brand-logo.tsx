@@ -25,11 +25,11 @@ export function BrandLogo({
           height={698}
           priority={priority}
           loading={priority ? "eager" : undefined}
-          className={cn("h-full w-full object-contain drop-shadow-lg", imageClassName)}
+          className={cn("h-full w-full object-contain", imageClassName)}
         />
       </span>
       {showText ? (
-        <span className="text-sm font-bold tracking-tight sm:text-base">
+        <span className="font-display text-sm font-semibold tracking-[-0.02em] sm:text-base">
           Kapa Software
         </span>
       ) : null}

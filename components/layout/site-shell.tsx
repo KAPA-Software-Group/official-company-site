@@ -4,7 +4,7 @@ import { PageTransition } from "@/components/layout/page-transition";
 
 export function SiteShell({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <main className="min-h-screen overflow-hidden bg-background text-foreground">
+    <main className="site-field min-h-screen overflow-hidden text-foreground">
       <Navbar />
       <PageTransition>{children}</PageTransition>
       <Footer />
