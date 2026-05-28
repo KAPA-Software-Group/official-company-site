@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
@@ -13,13 +13,27 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  // `scrolled` drives the transparent-at-top -> glass-on-scroll transition.
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-0 sm:px-4">
       <motion.nav
-        className="nav-glass relative mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between overflow-hidden border-b px-5 sm:border-x sm:px-6 lg:px-8"
+        className={cn(
+          "relative mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between overflow-hidden px-5 transition-all duration-500 ease-out sm:px-6 lg:px-8",
+          scrolled
+            ? "nav-glass border-b sm:border-x"
+            : "border-b border-transparent bg-transparent shadow-none sm:border-x",
+        )}
         aria-label="Primary navigation"
         initial={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
         animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -45,8 +59,14 @@ export function Navbar() {
                 key={item.label}
                 href={item.href}
                 className={cn(
-                  "relative flex h-full items-center px-4 text-sm font-medium transition hover:text-foreground",
-                  isActive ? "text-foreground" : "text-muted",
+                  "relative flex h-full items-center px-4 text-sm font-medium transition",
+                  scrolled
+                    ? isActive
+                      ? "text-foreground"
+                      : "text-muted hover:text-foreground"
+                    : isActive
+                      ? "text-white"
+                      : "text-white/70 hover:text-white",
                 )}
               >
                 {isActive ? (
