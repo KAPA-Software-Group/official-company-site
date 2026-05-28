@@ -16,7 +16,7 @@ export function FeatureBento() {
           <SectionHeading
             align="left"
             title="One studio for the whole digital system."
-            subtitle="Strategy, interface, build, and the connective automation behind it — handled end to end so nothing is stitched together after the fact."
+            subtitle="Strategy, interface, build, and the connective automation behind it - handled end to end so nothing is stitched together after the fact."
           />
         </Reveal>
 

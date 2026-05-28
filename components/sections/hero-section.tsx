@@ -21,11 +21,11 @@ const URL_BY_PHASE = ["notebook.txt", "localhost:3000", "kapa.dev/your-idea"];
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
   const [phase, setPhase] = useState(0);
+  const visiblePhase = shouldReduceMotion ? 2 : phase;
 
   useEffect(() => {
     if (shouldReduceMotion) {
-      setPhase(2);
-      return;
+      return undefined;
     }
     const timer = setInterval(
       () => setPhase((p) => (p + 1) % PHASES.length),
@@ -109,7 +109,7 @@ export function HeroSection() {
             className="mt-6 max-w-md text-pretty text-base font-light text-white/65 sm:text-lg"
           >
             Hand us a rough note, a sketch, or a few lines of code. We turn it
-            into a polished website — designed, built, and live on the internet.
+            into a polished website - designed, built, and live on the internet.
           </motion.p>
 
           <motion.div
@@ -141,8 +141,8 @@ export function HeroSection() {
           transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
           className="w-full"
         >
-          <PhaseTracker phase={phase} reduce={shouldReduceMotion} />
-          <BrowserWindow phase={phase} reduce={shouldReduceMotion} />
+          <PhaseTracker phase={visiblePhase} reduce={shouldReduceMotion} />
+          <BrowserWindow phase={visiblePhase} reduce={shouldReduceMotion} />
         </motion.div>
       </div>
     </section>
@@ -301,8 +301,8 @@ function IdeaStage({ reduce }: { reduce: boolean | null }) {
           ))}
         </div>
         <div className="mt-6 flex items-center gap-2 text-sm text-amber-100/50">
-          <span className="text-base">✏️</span>
-          “a clean site for my idea…”
+          <PenLine className="h-4 w-4" aria-hidden="true" />
+          &quot;a clean site for my idea...&quot;
         </div>
       </div>
     </Stage>

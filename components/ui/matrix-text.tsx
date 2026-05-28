@@ -144,7 +144,7 @@ export const MatrixText = ({
                                 fontVariantNumeric: "tabular-nums",
                             }}
                         >
-                            {letter.isSpace ? " " : letter.char}
+                            {letter.isSpace ? "\u00a0" : letter.char}
                         </motion.div>
                     ))}
                 </div>

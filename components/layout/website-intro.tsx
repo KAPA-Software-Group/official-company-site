@@ -7,23 +7,34 @@ import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 
 export function WebsiteIntro() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem(siteConfig.introStorageKey) === "true";
+    let hasSeenIntro = false;
 
-    if (hasSeenIntro) {
-      const frame = window.requestAnimationFrame(() => setShow(false));
-      return () => window.cancelAnimationFrame(frame);
+    try {
+      hasSeenIntro = sessionStorage.getItem(siteConfig.introStorageKey) === "true";
+    } catch {
+      hasSeenIntro = false;
     }
 
-    sessionStorage.setItem(siteConfig.introStorageKey, "true");
+    if (hasSeenIntro) {
+      return undefined;
+    }
 
+    try {
+      sessionStorage.setItem(siteConfig.introStorageKey, "true");
+    } catch {
+      // Continue without storage access; the animation still dismisses normally.
+    }
+
+    const frame = window.requestAnimationFrame(() => setShow(true));
     const duration = shouldReduceMotion ? 700 : 2600;
     const timer = window.setTimeout(() => setShow(false), duration);
 
     return () => {
+      window.cancelAnimationFrame(frame);
       window.clearTimeout(timer);
     };
   }, [shouldReduceMotion]);
